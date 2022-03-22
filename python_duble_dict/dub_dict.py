@@ -27,27 +27,27 @@ w_8 = workout("2023", "Press", 12, 95)
 
 workouts = [w_1, w_2, w_3, w_4, w_5, w_6, w_7, w_8]
 
-workouts_date = [wk.dater for wk in workouts] # gets the list of the workout names
+workouts_dates = [wk.dater for wk in workouts] # gets the list of the workout names
 print("workouts")
-print(workouts_date)
+print(workouts_dates)
 
-single_dict = {d:{} for d in workouts_date} # Makes a dict of the workouts
+single_dict = {d:{} for d in workouts_dates} # Makes a dict of the workouts
 print(single_dict)
 
-# for single, workouter in zip(single_workouts, wks):
-for wo, dates in zip(workouts, workouts_date):
-    name = wo.name
-    interval = wo.interval
-    res = wo.resistance
-    if name in single_dict[dates]:
-        single_dict[dates][name] += [interval, res]
-    else:
-        single_dict[dates][name] = [interval, res]
-        pass
-        # single_workouts[name] = [res, interval]
+# for i in zip(workouts, workouts_dates):
+#     print(i[0].dater + " " + i[0].name + " " + str(i[0].interval) + " " + str(i[0].resistance) + " " + i[1])
 
-for dates in single_dict:
-    print(dates)
-    for ex, pat in single_dict[dates].items():
+for wos in (workouts):
+    dater = wos.dater
+    name = wos.name
+    interval = wos.interval
+    res = wos.resistance
+    if name in single_dict[dater]:
+        single_dict[dater][name] += [interval, res]
+    else:
+        single_dict[dater][name] = [interval, res]
+
+for wos_dates in single_dict:
+    print(wos_dates)
+    for ex, pat in single_dict[wos_dates].items():
         print(ex,*pat,sep="    ")
-# print(single_dict)
