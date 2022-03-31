@@ -1,0 +1,87 @@
+{%extends 'base.html'%}
+
+{%block content%} 
+<head>
+    <meta charset="utf-8" />
+    <title>{{ title }}</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+  </head>
+  
+  <body>
+    <center>
+      <h1>{{ title }}</h1>
+    </center>
+    <center>
+      <canvas id="chart" width="600" height="400"></canvas>
+      <script>
+        // bar chart data
+        const data = {
+          labels: [
+            'Red',
+            'Blue',
+            'Yellow'
+          ],
+          datasets: [{
+            label: 'My First Dataset',
+            data: [300, 50, 100],
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 205, 86)'
+            ],
+            hoverOffset: 4
+          }]
+        };
+  
+       // get pie chart canvas
+       var mychart = document.getElementById("chart").getContext("2d");
+  
+       const config = {
+         type: 'pie',
+         data: data,
+         options: {}
+        };
+        
+        var options = {
+          responsive: true,
+          title: {
+            display: true,
+            position: "top",
+            text: "Pie Chart",
+            fontSize: 18,
+            fontColor: "#111"
+          },
+          legend: {
+            display: true,
+            position: "bottom",
+            labels: {
+              fontColor: "#333",
+              fontSize: 16
+            }
+          }
+        };
+
+        // draw bar chart
+        const myChart = new Chart(mychart,{
+            type: "pie",
+            data: data,
+            options: options
+          }
+        );
+      //  new Chart(mychart).Pie(pieData, {
+      //    scaleOverride: true,
+      //    scaleSteps: steps,
+      //    scaleStepWidth: Math.ceil(max / steps),
+      //    scaleStartValue: 0,
+      //    scaleShowVerticalLines: true,
+      //    scaleShowGridLines : true,
+      //    barShowStroke : true,
+      //    scaleShowLabels: true
+      //    }
+      //  );
+  
+      </script>
+    </center>
+  </body>
+  </html>
+  {% endblock %}

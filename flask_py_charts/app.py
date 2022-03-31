@@ -22,6 +22,10 @@ colors = [
     "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
     "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
 
+@app.route('/')
+def index():
+   return render_template("base.html")
+
 @app.route('/bar')
 def bar():
     bar_labels=labels
@@ -38,7 +42,10 @@ def line():
 def pie():
     pie_labels = labels
     pie_values = values
-    return render_template('pie_chart.html', title='Bitcoin Monthly Price in USD', max=17000, set=zip(values, labels, colors))
+    set = zip(pie_labels, pie_values, colors)
+    for i in set:
+        print(i)
+    return render_template('pie_chart.html', title='Bitcoin Monthly Price in USD', max=17000, set=set)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
