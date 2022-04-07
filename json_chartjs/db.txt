@@ -1,0 +1,47 @@
+sqlite> .schema
+CREATE TABLE workouts(
+    id INTEGER NOT NULL,
+    userID INTEGER NOT NULL,
+    DateAndTime smalldatetime NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (UserID) REFERENCES users(id)
+);
+CREATE TABLE IF NOT EXISTS "sets"(
+    id INTEGER,
+    interval INTEGER,
+    resistance DECIMAL(8,2),
+    setNumber INTEGER,
+    workoutID INTEGER,
+    exerciseID INTEGER,
+
+    PRIMARY KEY (id),
+    FOREIGN KEY (workoutID) REFERENCES workouts(id),
+    FOREIGN KEY (exerciseID) REFERENCES exercises(id)
+);
+CREATE TABLE IF NOT EXISTS "cardios"(
+    id INTEGER,
+    duration INTEGER NOT NULL,
+    distance DECIMAL(8,2),
+    setNumber INTEGER NOT NULL,
+    workoutID INTEGER NOT NULL,
+    exerciseID INTEGER NOT NULL,
+
+    PRIMARY KEY (id),
+    FOREIGN KEY (workoutID) REFERENCES workouts(id),
+    FOREIGN KEY (exerciseID) REFERENCES exercises(id)
+);
+CREATE TABLE IF NOT EXISTS "users" (
+    id INTEGER NOT NULL,
+    lastName VARCHAR(255) NOT NULL,
+    firstName VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    dateOfBirth DATE NOT NULL,
+    hash VARCHAR(255) NOT NULL,
+
+    PRIMARY KEY (id)
+);
+CREATE TABLE IF NOT EXISTS "exercises"(
+    id INTEGER NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
