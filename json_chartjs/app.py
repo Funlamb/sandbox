@@ -3,7 +3,7 @@ from flask import Flask
 from flask import Markup
 from flask import Flask
 from flask import render_template
-from helper import get_db_connection
+from helper import get_db_connection, default
 from graph_set import Graph_set
 import json
 from MyEncoder import myEncoder
@@ -23,7 +23,7 @@ def bar():
     query = """SELECT users.firstName, workouts.dateandtime AS w_datetime, workouts.id as w_id, sets.id AS s_id, sets.interval AS s_interval, sets.resistance AS s_res,
       sets.setNumber AS s_setNum, sets.workoutID AS s_workID, sets.exerciseID AS s_exeID, exercises.name AS e_name FROM users
       JOIN workouts ON users.id = workouts.userID JOIN sets ON workouts.id = sets.workoutID JOIN exercises ON
-      sets.exerciseID = exercises.id WHERE users.id = ? ORDER BY w_id DESC LIMIT 50"""
+      sets.exerciseID = exercises.id WHERE users.id = ? ORDER BY w_id DESC LIMIT 6"""
     exercises = cur.execute(query, userID).fetchall()
     
     graph_exercises = []
@@ -57,11 +57,12 @@ def bar():
     ex_2 = big_lst[0][1]
     ex_3 = big_lst[1][0]
 
+    print(type(big_lst))
     exer = {"second":[big_lst]}
 
     exer_col = ExerciseCollection(exer)
     print(exer_col)
-    print(json.dumps(exer_col, cls=myEncoder, indent=2))
+    print(json.dumps(exer_col, default=default, indent=2))
     # Need to learn how to make the large JSON text to pass to the page
     # print(json.dumps(big_lst[0][0].__dict__, indent=2, sort_keys= True))
     return render_template("bar.html")
