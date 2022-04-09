@@ -23,7 +23,6 @@ class ExerciseCollection:
         to_return = {"version": self.version}
         exercises = {}
         for key, exer in self.exertest.item():
-            print( key + " " + exer)
             jexer = []
             for j in exer:
                 jexer.append(j.__dict__)

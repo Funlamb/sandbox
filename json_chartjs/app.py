@@ -58,11 +58,11 @@ def bar():
     ex_3 = big_lst[1][0]
 
     print(type(big_lst))
-    exer = {"second":[big_lst]}
+    exer = {"second":[[ex_1], [ex_2, ex_3]]}
 
     exer_col = ExerciseCollection(exer)
     print(exer_col)
-    print(json.dumps(exer_col, default=default, indent=2))
+    print(json.dumps(exer_col, cls=myEncoder, indent=2))
     # Need to learn how to make the large JSON text to pass to the page
     # print(json.dumps(big_lst[0][0].__dict__, indent=2, sort_keys= True))
     return render_template("bar.html")
