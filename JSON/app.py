@@ -59,8 +59,14 @@ class ImageLabelCollection:
         image_boxes = {}
         for key, boxes in self.bboxes.items():
             jboxes = []
+            dict_boxes = {}
             for box in boxes:
-                jboxes.append(box.__dict__)
+                iboxes = []
+                k = box[0].label
+                for i in box:
+                    iboxes.append(i.__dict__)
+                dict_boxes[k] = iboxes
+                jboxes.append(dict_boxes)
             image_boxes[key] = jboxes
 
         to_return["boundingBoxes"] = image_boxes
@@ -68,8 +74,9 @@ class ImageLabelCollection:
 
 label1 = Label("person", 10, 10, 4, 10)
 label2 = Label("car", 20, 20, 5, 11)
+label3 = Label("cat", 220, 20, 5, 11)
 
-image_bboxes = {"image1.jpg": [label1, label2]}
+image_bboxes = {"image1.jpg": [[label1], [label2, label3]]}
 
 image_label_col = ImageLabelCollection(image_bboxes)
 print(image_label_col)
